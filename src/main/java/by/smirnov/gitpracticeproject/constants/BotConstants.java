@@ -5,9 +5,6 @@ public interface BotConstants {
     String COMMAND_START = "/start";
     String COMMAND_HELP = "/help";
     String COMMAND_REGISTER = "/register";
-    String COMMAND_MY_DATA = "/mydata";
-    String COMMAND_DELETE_DATA = "/deletedata";
-    String COMMAND_SETTINGS = "/settings";
     String HELP_TEXT = """
             This bot is created to demonstrate Spring capabilities.
             You can execute commands from the main menu on the left or by typing a command:
