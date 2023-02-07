@@ -44,6 +44,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final UserService userService;
     private final BotExecutor botExecutor;
     private final InlineButtons inlineButtons;
+    private final CallBackHandler callBackHandler;
 
     @Override
     public String getBotUsername() {
@@ -60,7 +61,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         if (update.hasMessage() && update.getMessage().hasText()) {
             handleMessage(update);
         } else if (update.hasCallbackQuery()) {
-            handleCallBackQuery(update);
+            callBackHandler.handleCallBackQuery(update);
         }
     }
 
@@ -86,19 +87,6 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case COMMAND_REGISTER -> register(chatId);
                 default -> botExecutor.executeMessage(message, String.format(DEFAULT_TEXT, messageText));
             }
-        }
-    }
-
-    private void handleCallBackQuery(Update update){
-        String callbackData = update.getCallbackQuery().getData();
-        Message message = update.getCallbackQuery().getMessage();
-        int messageId = message.getMessageId();
-        long chatId = message.getChatId();
-
-        if (callbackData.equals(YES_BUTTON)) {
-            botExecutor.editMessage(YES_BUTTON_MSG, chatId, messageId);
-        } else if (callbackData.equals(NO_BUTTON)) {
-            botExecutor.editMessage(NO_BUTTON_MSG, chatId, messageId);
         }
     }
 
