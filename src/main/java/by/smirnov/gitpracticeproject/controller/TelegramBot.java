@@ -1,5 +1,6 @@
 package by.smirnov.gitpracticeproject.controller;
 
+import by.smirnov.gitpracticeproject.component.InlineButtons;
 import by.smirnov.gitpracticeproject.config.BotConfig;
 import by.smirnov.gitpracticeproject.entity.User;
 import by.smirnov.gitpracticeproject.service.UserService;
@@ -42,6 +43,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final BotConfig botConfig;
     private final UserService userService;
     private final BotExecutor botExecutor;
+    private final InlineButtons inlineButtons;
 
     @Override
     public String getBotUsername() {
@@ -101,31 +103,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     private void register(long chatId) {
-
-        SendMessage message = new SendMessage();
-        message.setChatId(String.valueOf(chatId));
-        message.setText(ASK_REGISTRATION);
-
-        InlineKeyboardMarkup keybdMarkup = new InlineKeyboardMarkup();
-        List<List<InlineKeyboardButton>> keybd = new ArrayList<>();
-        List<InlineKeyboardButton> buttonsRow = new ArrayList<>();
-
-        var yesButton = new InlineKeyboardButton();
-        yesButton.setText(YES_BUTTON_NAME);
-        yesButton.setCallbackData(YES_BUTTON);
-
-        var noButton = new InlineKeyboardButton();
-        noButton.setText(NO_BUTTON_NAME);
-        noButton.setCallbackData(NO_BUTTON);
-
-        buttonsRow.add(yesButton);
-        buttonsRow.add(noButton);
-
-        keybd.add(buttonsRow);
-
-        keybdMarkup.setKeyboard(keybd);
-        message.setReplyMarkup(keybdMarkup);
-
+        SendMessage message = inlineButtons.getButtons(chatId);
         botExecutor.executeMessage(message);
     }
 
