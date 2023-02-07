@@ -1,7 +1,7 @@
 # Git Practice Project
 _____
 ### Description
-This is not a pet project. For git skills test only!
+This is not a pet project. For Git tests only!
 _____
 ### Technologies
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
