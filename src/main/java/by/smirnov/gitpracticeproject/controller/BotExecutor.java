@@ -23,7 +23,7 @@ public class BotExecutor {
     private final TelegramBot bot;
     private final MessageSender messageSender;
 
-    public BotExecutor(TelegramBot bot, MessageSender messageSender) {
+    public BotExecutor(@Lazy TelegramBot bot, MessageSender messageSender) {
         this.bot = bot;
         this.messageSender = messageSender;
     }
