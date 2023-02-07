@@ -12,13 +12,7 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static by.smirnov.gitpracticeproject.constants.BotConstants.ASK_REGISTRATION;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.COMMAND_HELP;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.COMMAND_REGISTER;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.COMMAND_SEND;
@@ -28,12 +22,10 @@ import static by.smirnov.gitpracticeproject.constants.BotConstants.HELP_TEXT;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.LOG_REPLIED;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.NO_BUTTON;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.NO_BUTTON_MSG;
-import static by.smirnov.gitpracticeproject.constants.BotConstants.NO_BUTTON_NAME;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.SMILE_BLUSH;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.START_TEXT;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.YES_BUTTON;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.YES_BUTTON_MSG;
-import static by.smirnov.gitpracticeproject.constants.BotConstants.YES_BUTTON_NAME;
 import static by.smirnov.gitpracticeproject.constants.LogConstants.LOG_MESSAGE_SENT;
 
 @Component
