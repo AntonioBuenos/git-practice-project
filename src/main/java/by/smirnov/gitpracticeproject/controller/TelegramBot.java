@@ -17,6 +17,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import java.util.ArrayList;
 import java.util.List;
 
+import static by.smirnov.gitpracticeproject.constants.BotConstants.ASK_REGISTRATION;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.COMMAND_HELP;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.COMMAND_REGISTER;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.COMMAND_SEND;
@@ -25,9 +26,14 @@ import static by.smirnov.gitpracticeproject.constants.BotConstants.DEFAULT_TEXT;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.HELP_TEXT;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.LOG_REPLIED;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.NO_BUTTON;
+import static by.smirnov.gitpracticeproject.constants.BotConstants.NO_BUTTON_MSG;
+import static by.smirnov.gitpracticeproject.constants.BotConstants.NO_BUTTON_NAME;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.SMILE_BLUSH;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.START_TEXT;
 import static by.smirnov.gitpracticeproject.constants.BotConstants.YES_BUTTON;
+import static by.smirnov.gitpracticeproject.constants.BotConstants.YES_BUTTON_MSG;
+import static by.smirnov.gitpracticeproject.constants.BotConstants.YES_BUTTON_NAME;
+import static by.smirnov.gitpracticeproject.constants.LogConstants.LOG_MESSAGE_SENT;
 
 @Component
 @Slf4j
@@ -59,7 +65,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     private void handleMessage(Update update){
         Message message = update.getMessage();
         String messageText = message.getText();
-        log.info("{} sent message: {}", message.getChat().getUserName(), messageText);
+        log.info(LOG_MESSAGE_SENT, message.getChat().getUserName(), messageText);
         long chatId = message.getChatId();
 
         if (messageText.contains(COMMAND_SEND) && botConfig.getOwnerId() == chatId) {
@@ -88,11 +94,9 @@ public class TelegramBot extends TelegramLongPollingBot {
         long chatId = message.getChatId();
 
         if (callbackData.equals(YES_BUTTON)) {
-            String text = "You pressed YES button";
-            botExecutor.editMessage(text, chatId, messageId);
+            botExecutor.editMessage(YES_BUTTON_MSG, chatId, messageId);
         } else if (callbackData.equals(NO_BUTTON)) {
-            String text = "You pressed NO button";
-            botExecutor.editMessage(text, chatId, messageId);
+            botExecutor.editMessage(NO_BUTTON_MSG, chatId, messageId);
         }
     }
 
@@ -100,18 +104,18 @@ public class TelegramBot extends TelegramLongPollingBot {
 
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
-        message.setText("Do you really want to register?");
+        message.setText(ASK_REGISTRATION);
 
         InlineKeyboardMarkup keybdMarkup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> keybd = new ArrayList<>();
         List<InlineKeyboardButton> buttonsRow = new ArrayList<>();
 
         var yesButton = new InlineKeyboardButton();
-        yesButton.setText("Yes");
+        yesButton.setText(YES_BUTTON_NAME);
         yesButton.setCallbackData(YES_BUTTON);
 
         var noButton = new InlineKeyboardButton();
-        noButton.setText("No");
+        noButton.setText(NO_BUTTON_NAME);
         noButton.setCallbackData(NO_BUTTON);
 
         buttonsRow.add(yesButton);

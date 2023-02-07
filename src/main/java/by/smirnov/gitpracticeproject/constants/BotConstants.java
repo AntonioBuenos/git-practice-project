@@ -21,8 +21,13 @@ public interface BotConstants {
     String SMILE_BLUSH = ":blush:";
     String YES_BUTTON = "YES_BUTTON";
     String NO_BUTTON = "NO_BUTTON";
+    String YES_BUTTON_MSG = "YES_BUTTON";
+    String NO_BUTTON_MSG = "NO_BUTTON";
     String ERROR = "Error occurred: {}";
     String ERROR_COMMAND_LIST = "Error setting bot's command list: {}";
     String LOG_SAVED = "user saved: {}";
     String LOG_REPLIED = "Replied to user {}";
+    String ASK_REGISTRATION = "Do you really want to register?";
+    String YES_BUTTON_NAME = "Yes";
+    String NO_BUTTON_NAME = "No";
 }
