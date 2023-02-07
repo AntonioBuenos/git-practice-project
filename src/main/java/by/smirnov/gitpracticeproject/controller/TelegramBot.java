@@ -45,6 +45,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final BotExecutor botExecutor;
     private final InlineButtons inlineButtons;
     private final CallBackHandler callBackHandler;
+    private final MessageHandler messageHandler;
 
     @Override
     public String getBotUsername() {
@@ -59,49 +60,10 @@ public class TelegramBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
-            handleMessage(update);
+            messageHandler.handleMessage(update);
         } else if (update.hasCallbackQuery()) {
             callBackHandler.handleCallBackQuery(update);
         }
-    }
-
-    private void handleMessage(Update update){
-        Message message = update.getMessage();
-        String messageText = message.getText();
-        log.info(LOG_MESSAGE_SENT, message.getChat().getUserName(), messageText);
-        long chatId = message.getChatId();
-
-        if (messageText.contains(COMMAND_SEND) && botConfig.getOwnerId() == chatId) {
-            String textToSend = EmojiParser.parseToUnicode(messageText.substring(messageText.indexOf(" ")));
-            for (User user : userService.findAll()) {
-                SendMessage sendMessage = new SendMessage();
-                sendMessage.setChatId(user.getChatId());
-                sendMessage.setText(textToSend);
-                sendMessage.enableHtml(true);
-                botExecutor.executeMessage(sendMessage);
-            }
-        } else {
-            switch (messageText) {
-                case COMMAND_START -> startCommandReceived(message);
-                case COMMAND_HELP -> botExecutor.executeMessage(message, HELP_TEXT);
-                case COMMAND_REGISTER -> register(chatId);
-                default -> botExecutor.executeMessage(message, String.format(DEFAULT_TEXT, messageText));
-            }
-        }
-    }
-
-    private void register(long chatId) {
-        SendMessage message = inlineButtons.getButtons(chatId);
-        botExecutor.executeMessage(message);
-    }
-
-    private void startCommandReceived(Message message) {
-        userService.registerUser(message);
-        String name = message.getChat().getFirstName();
-        String answer = EmojiParser.parseToUnicode(String.format(START_TEXT, name, SMILE_BLUSH));
-
-        log.info(LOG_REPLIED, message.getChat().getUserName());
-        botExecutor.executeMessage(message, answer);
     }
 
 }
