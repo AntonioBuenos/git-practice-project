@@ -16,7 +16,7 @@ public interface BotConstants {
             Type /help to see this message again""";
     String DEFAULT_TEXT = "Все говорят \"%s\", а ты возьми и приди! еще и подарок принеси!))";
     String START_TEXT = """
-            Привет, %s, я бот! Меня создал Антон, потому что ему лень самому общаться в телеграме.
+            Привет, %s, я бот! Меня создал хозяин, потому что ему лень самому общаться в телеграме.
             А теперь к делу: приходи к нему на ДР! Что скажешь? %s""";
     String SMILE_BLUSH = ":blush:";
     String YES_BUTTON = "YES_BUTTON";
